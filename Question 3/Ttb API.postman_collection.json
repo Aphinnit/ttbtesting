@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "d4229340-6f3b-4ca4-8f76-54033e74c80e",
+		"name": "Ttb API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7858150"
+	},
+	"item": [
+		{
+			"name": "User profile success",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if the response status is 200 OK",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// parse json",
+							"var jsonData = pm.response.json();",
+							"",
+							"// Validate the response body against the expected values",
+							"pm.test(\"ID matches expected value\", function () {",
+							"    pm.expect(jsonData.data.id).to.equal(12);",
+							"});",
+							"",
+							"pm.test(\"Email matches expected value\", function () {",
+							"    pm.expect(jsonData.data.email).to.equal(\"rachel.howell@reqres.in\");",
+							"});",
+							"",
+							"pm.test(\"First Name matches expected value\", function () {",
+							"    pm.expect(jsonData.data.first_name).to.equal(\"Rachel\");",
+							"});",
+							"",
+							"pm.test(\"Last Name matches expected value\", function () {",
+							"    pm.expect(jsonData.data.last_name).to.equal(\"Howell\");",
+							"});",
+							"",
+							"pm.test(\"Avatar matches expected value\", function () {",
+							"    pm.expect(jsonData.data.avatar).to.equal(\"https://reqres.in/img/faces/12-image.jpg\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/12",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User profile but user not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if the response status is 200 OK",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"// Check if the response status is empty ",
+							"pm.test(\"Response body is '{}'\", function () {",
+							"    pm.expect(pm.response.text()).to.equal('{}');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/1234",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"1234"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
